@@ -11,10 +11,10 @@ const char* host = "localhost";
 const char* user = "root";
 const char* pw = "p158742639";
 const char* db = "project";
+MYSQL* connection = NULL;
 
 int main(void) {
 
-	MYSQL* connection = NULL;
 	MYSQL conn;
 	//MYSQL_RES* sql_result;
 	//MYSQL_ROW sql_row;
@@ -78,22 +78,23 @@ int main(void) {
 void instruction_handler(int instruction_number) {
 	switch (instruction_number) {
 	case 0:
+		mysql_close(connection);
 		exit(1);
 		break;
 	case 1:
-		type1();
+		type1(connection);
 		break;
 	case 2:
-		type2();
+		type2(connection);
 		break;
 	case 3:
-		type3();
+		type3(connection);
 		break;
 	case 4:
-		type4();
+		type4(connection);
 		break;
 	case 5:
-		type5();
+		type5(connection);
 		break;
 	default:
 		printf("instruction Handler Error\n");
