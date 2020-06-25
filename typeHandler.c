@@ -118,12 +118,10 @@ void type2(MYSQL * connection) { // TYPE2 - Find the customer who has shipped th
 	printf("type2\n");
 	printf("---- TYPE II ----\n\n");
 	printf("** Find the customer who has shipped the most packages in certain year**\n");
-	printf(" Which Year? : ");
-	scanf_s("%d", &year); 
-	
-	printf(" Customer Name : "); 
-	scanf_s("%s", customer_name, 255);
-	
+	printf(" Which Year? : "); scanf_s("%d", &year); 
+	getchar();
+
+	printf(" Customer Name : "); scanf_s("%s", customer_name, 255);
 	system("cls");
 
 	while (!feof(fp)) { // Until end of the file, Read and Read
@@ -149,7 +147,7 @@ void type2(MYSQL * connection) { // TYPE2 - Find the customer who has shipped th
 void type3(MYSQL * connection) { // TYPE3 - Find the customer who has spent the most money on shipping in the past certain year
 	FILE* fp = query_open("Query/type3.txt", "r");
 	if (fp == NULL) {
-		fprintf(stderr, "type2 fopen error\n");
+		fprintf(stderr, "type3 fopen error\n");
 	}
 	printf("type3\n");
 	while (!feof(fp)) { // Until end of the file, Read and Read
@@ -175,7 +173,7 @@ void type3(MYSQL * connection) { // TYPE3 - Find the customer who has spent the 
 void type4(MYSQL * connection) { // TYPE4 - Find those packages that were not delivered whthin the promised time.
 	FILE* fp = query_open("Query/type4.txt", "r");
 	if (fp == NULL) {
-		fprintf(stderr, "type2 fopen error\n");
+		fprintf(stderr, "type4 fopen error\n");
 	}
 	printf("type4\n");
 	while (!feof(fp)) { // Until end of the file, Read and Read
@@ -202,7 +200,7 @@ void type5(MYSQL * connection) { // TYPE5 - Generate the bill for each customer 
 				// seceral types of bills
 	FILE* fp = query_open("Query/type5.txt", "r");
 	if (fp == NULL) {
-		fprintf(stderr, "type2 fopen error\n");
+		fprintf(stderr, "type5 fopen error\n");
 	}
 	printf("type5\n");
 	while (!feof(fp)) { // Until end of the file, Read and Read
