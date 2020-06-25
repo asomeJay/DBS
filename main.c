@@ -98,6 +98,7 @@ void instruction_handler(int instruction_number) {
 	default:
 		printf("instruction Handler Error\n");
 	}
+	system("clr");
 }
 
 /*

@@ -14,3 +14,4 @@ void type5();
 
 void query_clear();
 FILE * query_open(const char *, const char *);
+void query_read(FILE*);

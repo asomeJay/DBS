@@ -34,8 +34,13 @@ void type1_1() { // TYPE I - 1 : Find all customers who had a package on the tru
 	if (fp == NULL) {
 		fprintf(stderr, "type1_1 fopen error\n");
 	}
-	printf("type1_1\n");
-		
+
+	while (!feof(fp)) { // Until end of the file, Read and Read
+		fgets(query, QUERY_LIMIT, fp);
+		printf("%s", query);
+	}		
+
+	fclose(fp);
 }
 
 void type1_2() {// TYPE I - 2 : Find all recipients who had a package on that truck at the time of the crash.
@@ -43,7 +48,12 @@ void type1_2() {// TYPE I - 2 : Find all recipients who had a package on that tr
 	if (fp == NULL) {
 		fprintf(stderr, "type1_2 fopen error\n");
 	}
-	printf("type1_2\n");
+	while (!feof(fp)) { // Until end of the file, Read and Read
+		fgets(query, QUERY_LIMIT, fp);
+		printf("%s", query);
+	}
+
+	fclose(fp);
 }
 
 void type1_3() { // TYPE I - 3 : Find the last Successful Delivery by that truct prior to the crash.
@@ -51,7 +61,12 @@ void type1_3() { // TYPE I - 3 : Find the last Successful Delivery by that truct
 	if (fp == NULL) {
 		fprintf(stderr, "type1_3 fopen error\n");
 	}
+	while (!feof(fp)) { // Until end of the file, Read and Read
+		fgets(query, QUERY_LIMIT, fp);
+		printf("%s", query);
+	}
 	printf("type1_3\n");
+	fclose(fp);
 }
 
 void type2() { // TYPE2 - Find the customer who has shipped the most packages in the past certain year
@@ -73,7 +88,11 @@ void type2() { // TYPE2 - Find the customer who has shipped the most packages in
 	
 	system("cls");
 
-
+	while (!feof(fp)) { // Until end of the file, Read and Read
+		fgets(query, QUERY_LIMIT, fp);
+		printf("%s", query);
+	}
+	fclose(fp);
 }
 
 void type3() { // TYPE3 - Find the customer who has spent the most money on shipping in the past certain year
@@ -82,6 +101,11 @@ void type3() { // TYPE3 - Find the customer who has spent the most money on ship
 		fprintf(stderr, "type2 fopen error\n");
 	}
 	printf("type3\n");
+	while (!feof(fp)) { // Until end of the file, Read and Read
+		fgets(query, QUERY_LIMIT, fp);
+		printf("%s", query);
+	}
+	fclose(fp);
 }
 
 void type4() { // TYPE4 - Find those packages that were not delivered whthin the promised time.
@@ -90,6 +114,11 @@ void type4() { // TYPE4 - Find those packages that were not delivered whthin the
 		fprintf(stderr, "type2 fopen error\n");
 	}
 	printf("type4\n");
+	while (!feof(fp)) { // Until end of the file, Read and Read
+		fgets(query, QUERY_LIMIT, fp);
+		printf("%s", query);
+	}
+	fclose(fp);
 }
 
 void type5() { // TYPE5 - Generate the bill for each customer for the past certain month. Consider creating 
@@ -99,6 +128,11 @@ void type5() { // TYPE5 - Generate the bill for each customer for the past certa
 		fprintf(stderr, "type2 fopen error\n");
 	}
 	printf("type5\n");
+	while (!feof(fp)) { // Until end of the file, Read and Read
+		fgets(query, QUERY_LIMIT, fp);
+		printf("%s", query);
+	}
+	fclose(fp);
 }
 
 void query_clear() {
@@ -118,4 +152,8 @@ FILE * query_open(const char * filename, const char * mode) {
 	}
 
 	return fp;
+}
+
+void query_read(FILE* fp) {
+
 }
