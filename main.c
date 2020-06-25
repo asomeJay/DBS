@@ -16,8 +16,8 @@ int main(void) {
 
 	MYSQL* connection = NULL;
 	MYSQL conn;
-	MYSQL_RES* sql_result;
-	MYSQL_ROW sql_row;
+	//MYSQL_RES* sql_result;
+	//MYSQL_ROW sql_row;
 
 	if (mysql_init(&conn) == NULL)
 		printf("mysql_init() error!");
@@ -47,7 +47,6 @@ int main(void) {
 			printf("\t3. TYPE III\n");
 			printf("\t4. TYPE IV\n");
 			printf("\t5. TYPE V\n");
-
 			printf("\t0. QUIT\n");
 
 			int number;
@@ -98,7 +97,6 @@ void instruction_handler(int instruction_number) {
 		break;
 	default:
 		printf("instruction Handler Error\n");
-		exit(-1);
 	}
 }
 
