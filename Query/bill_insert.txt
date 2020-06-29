@@ -1,0 +1,16 @@
+insert into bill values(1, 1, 'month', '2019-12-30 13:00:00', 1, 1);
+insert into bill values(2, 2, 'infrequent', '2019-11-29 13:00:00', 2, 2);
+insert into bill values(3, 3, 'month', '2020-01-01 13:00:00', 3, 3);
+insert into bill values(4, 4, 'month', '2019-12-29 13:00:00', 4, 4);
+insert into bill values(5, 5, 'infrequent', '2019-12-25 13:05:00', 5, 5);
+insert into bill values(6, 4, 'month', '2019-12-27 14:20:00', 6, 6);
+insert into bill values(7, 3, 'infrequent', '2019-12-30 14:00:00', 7, 7);
+insert into bill values(8, 2, 'month', '2019-12-23 13:00:30', 8, 8);
+insert into bill values(9, 1, 'month', '2019-12-22 13:00:00', 9, 9);
+insert into bill values(10, 2, 'infrequent', '2019-12-13 13:00:00', 10, 10);
+insert into bill values(11, 3, 'month', '2019-12-15 13:00:00', 11, 11);
+insert into bill values(12, 4, 'infrequent', '2019-12-30 16:45:00', 12, 12);
+insert into bill values(13, 5, 'infrequent', '2019-12-30 14:34:00', 13, 13);
+insert into bill values(14, 6, 'month', '2019-12-23 13:23:00', 14, 14);
+insert into bill values(15, 99, 'month', '2019-12-22 11:55:00', 15, 15);
+

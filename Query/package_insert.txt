@@ -1,0 +1,15 @@
+insert into package values(1, 'flat envelope', 1, 'hazardous materials', 'overnight');
+insert into package values(2, 'small box', 2, 'international', 'second day');
+insert into package values(3, 'larger boxes', 4, 'hazardous materials', 'longer');
+insert into package values(4, 'small box', 8, 'hazardous materials', 'second day');
+insert into package values(5, 'flat envelope', 16, 'international', 'longer');
+insert into package values(6, 'flat envelope', 32, 'normal', 'longer');
+insert into package values(7, 'larger boxes', 16, 'normal', 'second day');
+insert into package values(8, 'small box', 8, 'normal', 'overnight');
+insert into package values(9, 'flat envelope', 4, 'hazardous materials', 'longer');
+insert into package values(10, 'small box', 2, 'international', 'overnight');
+insert into package values(11, 'small box', 1, 'hazardous materials', 'second day');
+insert into package values(12, 'flat envelope', 3, 'normal', 'longer');
+insert into package values(13, 'small box', 9, 'normal', 'longer');
+insert into package values(14, 'flat envelope', 27, 'international', 'overnight');
+insert into package values(15, 'larger boxes', 81, 'normal', 'second day');

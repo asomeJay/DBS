@@ -1,0 +1,6 @@
+create table shipment(shipment_id int not null primary key, shipment_timeline datetime not null, recepient varchar(50) not null, destination_address varchar(50) not null, package_id int not null);
+create table ship_trans(shipment_timeline datetime not null, destination_address varchar(50) not null, transportation varchar(50) not null, shipment_location varchar(50) not null , primary key(shipment_timeline, destination_address));
+create table payment(payment_term varchar(50) primary key not null, payment_mean varchar(50) not null);
+create table bill(bill_id int not null primary key, payment_price int not null, payment_term varchar(50) not null, payment_time datetime not null, package_id int not null, customer_id int not null);
+create table customer(customer_id int not null primary key, customer_address varchar(50) not null);
+create table package(package_id int not null primary key, package_type varchar(50), package_weight int not null, package_importance varchar(50), package_delivery varchar(50));

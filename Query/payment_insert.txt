@@ -1,0 +1,2 @@
+insert into payment values ('monthly', 'account number'); 
+insert into payment values ('infrequently', 'credit card');

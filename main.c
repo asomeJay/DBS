@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <Windows.h>
+
 #include "typeHandler.h"
 #include "mysql.h"
 
-void instruction_handler(int);
-
+void instruction_handler(int ) ;
+void file_read(const char * , const char *);
 #pragma comment(lib, "libmysql.lib")
+#pragma warning(disable:4996)
 
 const char* host = "localhost";
 const char* user = "root";
@@ -18,7 +20,7 @@ int main(void) {
 	MYSQL conn;
 	//MYSQL_RES* sql_result;
 	//MYSQL_ROW sql_row;
-
+	
 	if (mysql_init(&conn) == NULL)
 		printf("mysql_init() error!");
 
@@ -31,15 +33,19 @@ int main(void) {
 
 	else
 	{
-		printf("Connection Succeed\n");
-
 		if (mysql_select_db(&conn, db))
 		{
 			printf("%d ERROR : %s\n", mysql_errno(&conn), mysql_error(&conn));
 			return 1;
 		}
-
-
+		file_read("Query/create.txt", "r");
+		file_read("Query/bill_insert.txt", "r");
+		file_read("Query/customer_insert.txt", "r");
+		file_read("Query/package_insert.txt", "r");
+		file_read("Query/payment_insert.txt", "r");
+		file_read("Query/ship_trans_insert.txt", "r");
+		file_read("Query/shipment_insert.txt", "r");
+		
 		while (true) {
 			printf("------- SELECT QUERY TYPES -------\n\n");
 			printf("\t1. TYPE I\n");
@@ -48,13 +54,15 @@ int main(void) {
 			printf("\t4. TYPE IV\n");
 			printf("\t5. TYPE V\n");
 			printf("\t0. QUIT\n");
-
+			
 			int number;
-			scanf_s("%d", &number);
-			system("cls");
+			scanf("%d", &number);
+			getchar();
+			//system("cls");
 			instruction_handler(number);
 
 		}
+
 		/*const char* query = "select * from student";
 		int state = 0;
 
@@ -78,6 +86,7 @@ int main(void) {
 void instruction_handler(int instruction_number) {
 	switch (instruction_number) {
 	case 0:
+		mysql_query(connection, "drop table bill, customer, ship_trans, package, payment, shipment");
 		mysql_close(connection);
 		exit(1);
 		break;
@@ -85,6 +94,7 @@ void instruction_handler(int instruction_number) {
 		type1(connection);
 		break;
 	case 2:
+		printf("??");
 		type2(connection);
 		break;
 	case 3:
@@ -97,7 +107,8 @@ void instruction_handler(int instruction_number) {
 		type5(connection);
 		break;
 	default:
-		printf("instruction Handler Error\n");
+		
+		printf("%d : instruction Handler Error\n", instruction_number);
 	}
 }
 
@@ -114,3 +125,15 @@ void instruction_handler(int instruction_number) {
 
 }
 */
+
+void file_read(const char * filename, const char * mode) {
+	FILE* fp = fopen(filename, mode);
+
+	while (!feof(fp)) 
+	{
+	char t_input[255];
+		fgets(t_input, 255, fp);
+		mysql_query(connection, t_input);	
+	}
+	fclose(fp);
+}
