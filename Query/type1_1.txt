@@ -1,1 +1,0 @@
-select customer.customer_id, customer.customer_address from customer, bill, shipment, ship_trans where ship_trans.transportation = 'truck 1721' and ship_trans.shipment_timeline = shipment.shipment_timeline and ship_trans.destination_address = shipment.destination_address and shipment.package_id = bill.package_id and bill.customer_id = customer.customer_id;
