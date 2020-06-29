@@ -38,23 +38,21 @@ void type1_1(MYSQL * connection) { // TYPE I - 1 : Find all customers who had a 
 	while (!feof(fp)) { // Until end of the file, Read and Read
 		fgets(query, QUERY_LIMIT, fp);
 		int state = 0;
-		printf("%s\n", query);
-		//state = mysql_query(connection, query);
-		//state = mysql_query(connection, "select customer.customer_id, customer.customer_address from customer, bill, shipment, ship_trans where ship_trans.transportation = 'truck 1721' and ship_trans.shipment_timeline = shipment.shipment_timeline and ship_trans.destination_address = shipment.destination_address and shipment.package_id = bill.package_id and bill.customer_id = customer.customer_id;");
-		state = mysql_query(connection, "select * from customer;");
+		state = mysql_query(connection, query);
+	//	state = mysql_query(connection, "select * from customer;");
 	//	printf("%s\n", mysql_error(connection));
-		printf("%d\n", state);
 
 		if (state == 0)
 		{
 			sql_result = mysql_store_result(connection);
+			printf("%-10s || %-10s\n", "CustomerID", "Customer Address");
+			printf("====================================\n");
 			while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
 			{
-				printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
+				printf("%-10s || %-10s\n", sql_row[0], sql_row[1]);
 			}
 			mysql_free_result(sql_result);
 		}
-		getchar();
 	}		
 
 	fclose(fp);
@@ -67,16 +65,17 @@ void type1_2(MYSQL * connection) {// TYPE I - 2 : Find all recipients who had a 
 	}
 	while (!feof(fp)) { // Until end of the file, Read and Read
 		fgets(query, QUERY_LIMIT, fp);
-		printf("%s", query);
 		int state = 0;
 
 		state = mysql_query(connection, query);
 		if (state == 0)
 		{
 			sql_result = mysql_store_result(connection);
+			printf("%-10s||\n", "recepient");
+			printf("=============\n");
 			while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
 			{
-				printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
+				printf("%-10s||\n", sql_row[0]);
 			}
 			mysql_free_result(sql_result);
 		}
@@ -93,139 +92,109 @@ void type1_3(MYSQL * connection) { // TYPE I - 3 : Find the last Successful Deli
 	}
 	while (!feof(fp)) { // Until end of the file, Read and Read
 		fgets(query, QUERY_LIMIT, fp);
-		printf("%s", query);
 		int state = 0;
 
 		state = mysql_query(connection, query);
 		if (state == 0)
 		{
 			sql_result = mysql_store_result(connection);
+			printf("%-10s||\n", "Shipment ID");
+			printf("=============\n");
+
 			while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
 			{
-				printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
+				printf("%-10s||\n", sql_row[0]);
 			}
 			mysql_free_result(sql_result);
 		}
 
 	}
-	printf("type1_3\n");
 	fclose(fp);
 }
 
 void type2(MYSQL * connection) { // TYPE2 - Find the customer who has shipped the most packages in the past certain year
-	FILE* fp = query_open("Query/type2.txt", "r");
-	if (fp == NULL) {
-		fprintf(stderr, "type2 fopen error\n");
-	}
-	int year;
-	char customer_name[255];
+	char year[QUERY_LIMIT];
 
-	printf("type2\n");
 	printf("---- TYPE II ----\n\n");
 	printf("** Find the customer who has shipped the most packages in certain year**\n");
-	printf(" Which Year? : "); scanf_s("%d", &year); 
-	getchar();
+	printf(" Which Year? : "); scanf("%s", year);
 
-	printf(" Customer Name : "); scanf_s("%s", customer_name, 255);
+	strcpy(query, "select bill.customer_id from bill where ");
+	strcat(query, year);
+	strcat(query, "=year(bill.payment_time) group by bill.customer_id order by count(*) desc;");
+
 	system("cls");
 
-	while (!feof(fp)) { // Until end of the file, Read and Read
-		fgets(query, QUERY_LIMIT, fp);
-		printf("%s", query);
-		int state = 0;
+	int state = 0;
 
-		state = mysql_query(connection, query);
-		if (state == 0)
-		{
-			sql_result = mysql_store_result(connection);
-			while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
-			{
-				printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
-			}
-			mysql_free_result(sql_result);
-		}
-
+	state = mysql_query(connection, query);
+	printf("%-20s||\n", "customer_id");
+	printf("=================\n");
+	if (state == 0)
+	{
+		sql_result = mysql_store_result(connection);
+		sql_row = mysql_fetch_row(sql_result);
+		printf("%-20s||\n", sql_row[0]);
+		mysql_free_result(sql_result);
 	}
-	fclose(fp);
 }
 
 void type3(MYSQL * connection) { // TYPE3 - Find the customer who has spent the most money on shipping in the past certain year
-	FILE* fp = query_open("Query/type3.txt", "r");
-	if (fp == NULL) {
-		fprintf(stderr, "type3 fopen error\n");
-	}
-	printf("type3\n");
-	while (!feof(fp)) { // Until end of the file, Read and Read
-		fgets(query, QUERY_LIMIT, fp);
-		printf("%s", query);
-		int state = 0;
+	char year[QUERY_LIMIT];
 
-		state = mysql_query(connection, query);
-		if (state == 0)
-		{
-			sql_result = mysql_store_result(connection);
-			while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
-			{
-				printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
-			}
-			mysql_free_result(sql_result);
-		}
+	printf("---- TYPE III ----\n\n");
+	printf("** Find the customer who has spent the most money on shipping in the past certain year**\n");
+	printf(" Which Year? : "); scanf("%s", year);
 
+	strcpy(query, "select bill.customer_id from bill where ");
+	strcat(query, year);
+	strcat(query, "=year(bill.payment_time) group by bill.customer_id order by sum(payment_price) desc;");
+
+	system("cls");
+
+	int state = 0;
+
+	state = mysql_query(connection, query);
+	printf("%-20s||\n", "customer_id");
+	printf("=================\n");
+	if (state == 0)
+	{
+		sql_result = mysql_store_result(connection);
+		sql_row = mysql_fetch_row(sql_result);
+		printf("%-20s||\n", sql_row[0]);
+		mysql_free_result(sql_result);
 	}
-	fclose(fp);
 }
 
 void type4(MYSQL * connection) { // TYPE4 - Find those packages that were not delivered whthin the promised time.
-	FILE* fp = query_open("Query/type4.txt", "r");
-	if (fp == NULL) {
-		fprintf(stderr, "type4 fopen error\n");
-	}
-	printf("type4\n");
-	while (!feof(fp)) { // Until end of the file, Read and Read
-		fgets(query, QUERY_LIMIT, fp);
-		printf("%s", query);
-		int state = 0;
+	int state = 0;
 
-		state = mysql_query(connection, query);
-		if (state == 0)
+	state = mysql_query(connection, "select package.package_id, package.package_type, package.package_weight, package.package_importance, package.package_delivery from package, shipment, bill where  shipment.package_id = package.package_id and bill.package_id = package.package_id and (( (package.package_delivery='second day') and (date_add(bill.payment_time, interval 2 day) >= shipment.shipment_timeline)) or ((package.package_delivery='overnight') and (date_add(bill.payment_time, interval 1 day) >= shipment.shipment_timeline)) or ((package.package_delivery='longer') and (bill.payment_time <= shipment.shipment_timeline))) group by package_id;");
+	if (state == 0)
+	{
+		sql_result = mysql_store_result(connection);
+		while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
 		{
-			sql_result = mysql_store_result(connection);
-			while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
-			{
-				printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
-			}
-			mysql_free_result(sql_result);
+			printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
 		}
-
+		mysql_free_result(sql_result);
 	}
-	fclose(fp);
 }
 
 void type5(MYSQL * connection) { // TYPE5 - Generate the bill for each customer for the past certain month. Consider creating 
 				// seceral types of bills
-	FILE* fp = query_open("Query/type5.txt", "r");
-	if (fp == NULL) {
-		fprintf(stderr, "type5 fopen error\n");
-	}
-	printf("type5\n");
-	while (!feof(fp)) { // Until end of the file, Read and Read
-		fgets(query, QUERY_LIMIT, fp);
-		printf("%s", query);
-		int state = 0;
+	int state = 0;
 
-		state = mysql_query(connection, query);
-		if (state == 0)
+	state = mysql_query(connection, query);
+	if (state == 0)
+	{
+		sql_result = mysql_store_result(connection);
+		while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
 		{
-			sql_result = mysql_store_result(connection);
-			while ((sql_row = mysql_fetch_row(sql_result)) != NULL)
-			{
-				printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
-			}
-			mysql_free_result(sql_result);
+			printf("%s %s %s %s\n", sql_row[0], sql_row[1], sql_row[2], sql_row[3]);
 		}
-
+		mysql_free_result(sql_result);
 	}
-	fclose(fp);
 }
 
 void query_clear() {
