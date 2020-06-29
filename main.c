@@ -93,7 +93,6 @@ void instruction_handler(int instruction_number) {
 		type1(connection);
 		break;
 	case 2:
-		printf("??");
 		type2(connection);
 		break;
 	case 3:
