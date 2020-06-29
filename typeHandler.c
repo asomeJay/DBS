@@ -34,12 +34,17 @@ void type1_1(MYSQL * connection) { // TYPE I - 1 : Find all customers who had a 
 	if (fp == NULL) {
 		fprintf(stderr, "type1_1 fopen error\n");
 	}
-
+	int zero;
 	while (!feof(fp)) { // Until end of the file, Read and Read
 		fgets(query, QUERY_LIMIT, fp);
 		int state = 0;
+		printf("%s\n", query);
+		//state = mysql_query(connection, query);
+		//state = mysql_query(connection, "select customer.customer_id, customer.customer_address from customer, bill, shipment, ship_trans where ship_trans.transportation = 'truck 1721' and ship_trans.shipment_timeline = shipment.shipment_timeline and ship_trans.destination_address = shipment.destination_address and shipment.package_id = bill.package_id and bill.customer_id = customer.customer_id;");
+		state = mysql_query(connection, "select * from customer;");
+	//	printf("%s\n", mysql_error(connection));
+		printf("%d\n", state);
 
-		state = mysql_query(connection, query);
 		if (state == 0)
 		{
 			sql_result = mysql_store_result(connection);
@@ -49,7 +54,7 @@ void type1_1(MYSQL * connection) { // TYPE I - 1 : Find all customers who had a 
 			}
 			mysql_free_result(sql_result);
 		}
-
+		getchar();
 	}		
 
 	fclose(fp);

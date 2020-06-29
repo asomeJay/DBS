@@ -57,8 +57,7 @@ int main(void) {
 			
 			int number;
 			scanf("%d", &number);
-			getchar();
-			//system("cls");
+			system("cls");
 			instruction_handler(number);
 
 		}
@@ -128,6 +127,7 @@ void instruction_handler(int instruction_number) {
 
 void file_read(const char * filename, const char * mode) {
 	FILE* fp = fopen(filename, mode);
+	MYSQL_RES* sql_result;
 
 	while (!feof(fp)) 
 	{
@@ -135,5 +135,10 @@ void file_read(const char * filename, const char * mode) {
 		fgets(t_input, 255, fp);
 		mysql_query(connection, t_input);	
 	}
+	sql_result = mysql_store_result(connection);
+	mysql_free_result(sql_result);
+
+
+	mysql_free_result(sql_result);
 	fclose(fp);
 }

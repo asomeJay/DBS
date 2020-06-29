@@ -2,7 +2,7 @@
 
 #include <mysql.h>
 
-#define QUERY_LIMIT 255
+#define QUERY_LIMIT 1024
 
 char query[QUERY_LIMIT];
 MYSQL_RES* sql_result;
